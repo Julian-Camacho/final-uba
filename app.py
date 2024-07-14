@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify # type: ignore
+from flask import Flask, request, jsonify, send_file # type: ignore
 from psycopg2 import connect, extras # type: ignore
 from cryptography.fernet import Fernet # type: ignore
+
 
 app = Flask(__name__)
 key = Fernet.generate_key()
@@ -105,7 +106,15 @@ def delete_user(id):
 # Base route
 @app.route('/', methods=['GET'])
 def home():
-    return 'Hello, World!'
+    return send_file('static/index.html')
+
+@app.route('/admin-produdts', methods=['GET'])
+def admin_products():
+    return send_file('static/admin-products/admin-products.html')
+
+@app.route('/admin-users', methods=['GET'])
+def admin_users():
+    return send_file('static/admin-users/admin-users.html')
 
 if __name__ == '__main__':
     app.run(debug=True) # run our Flask app
