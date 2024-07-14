@@ -172,7 +172,7 @@ def update_product(id):
         return jsonify({'message': 'Product not found'}), 404
     return jsonify(created_product)
 
-# Delete a user
+# Delete a product
 @app.route('/products/<int:id>', methods=['DELETE'])
 def delete_prouct(id):
     conn = get_connect()
