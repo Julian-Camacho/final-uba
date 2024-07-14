@@ -1,16 +1,16 @@
 from flask import Flask, request, jsonify, send_file # type: ignore
 from psycopg2 import connect, extras # type: ignore
 # from cryptography.fernet import Fernet # type: ignore
-
+from os import environ # type: ignore
 
 app = Flask(__name__)
 
 # Connect to the database
-host = 'localhost'
-database = 'ubadb'
-user = 'postgres'
-password = 'julian123'
-port = 5432
+host = environ.get("DB_HOST")
+database = environ.get("DB_NAME")
+user = environ.get("DB_USER")
+password = environ.get("DB_PASSWORD")
+port = environ.get("DB_PORT")
 
 def get_connect():
     conn = connect(
@@ -55,11 +55,12 @@ def create_user():
     username = new_user['username']
     email = new_user['email'] 
     password = new_user['password']
+    image = new_user['image']
 
     conn = get_connect()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
-    cur.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s) RETURNING *", 
-                (username, email, password))
+    cur.execute("INSERT INTO users (username, email, password, image) VALUES (%s, %s, %s, %s) RETURNING *", 
+                (username, email, password, image))
     created_user = cur.fetchone()
     
     conn.commit()
@@ -77,8 +78,9 @@ def update_user(id):
     username = new_user['username']
     email = new_user['email']
     password = new_user['password']
-    cur.execute("UPDATE users SET username = %s, email = %s, password = %s WHERE id = %s RETURNING *",
-                (username, email, password, id))
+    image = new_user['image']
+    cur.execute("UPDATE users SET username = %s, email = %s, password = %s, image = %s WHERE id = %s RETURNING *",
+                (username, email, password, image, id))
     updated_user = cur.fetchone()
     conn.commit()
     cur.close()
@@ -137,11 +139,12 @@ def create_product():
     gender = new_product['gender']
     description = new_product['description']
     price = new_product['price']
+    image = new_product['image']
     
     conn = get_connect()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
-    cur.execute("INSERT INTO products (productname, category, gender, description, price) VALUES (%s, %s, %s, %s, %s) RETURNING *",
-                (productname, category, gender, description, price))
+    cur.execute("INSERT INTO products (productname, category, gender, description, price, image) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *",
+                (productname, category, gender, description, price, image))
     created_product = cur.fetchone()
     
     conn.commit()
@@ -161,8 +164,9 @@ def update_product(id):
     gender = new_product['gender']
     description = new_product['description']
     price = new_product['price']
-    cur.execute("UPDATE products SET productname = %s, category = %s, gender = %s, description = %s, price = %s WHERE id = %s RETURNING *",
-                (productname, category, gender, description, price, id))
+    image = new_product['image']
+    cur.execute("UPDATE products SET productname = %s, category = %s, gender = %s, description = %s, price = %s, image = %s WHERE id = %s RETURNING *",
+                (productname, category, gender, description, price, image, id))
     created_product = cur.fetchone()
     conn.commit()
     cur.close()

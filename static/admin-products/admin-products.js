@@ -102,6 +102,8 @@ productForm.addEventListener("submit", (event) => {
         console.error("Error al editar producto\n", error);
       });
   } else {
+    
+    console.log(productImage.value);
     axios
       .post(`/products`, {
         productname: productName.value,
