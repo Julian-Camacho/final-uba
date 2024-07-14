@@ -39,20 +39,45 @@ function renderProducts(products) {
                                     <td>${product.description}</td>
                                     <td>$ ${product.price}</td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm" data-delete="${product.id}">Delete
+                                        <button class="btn btn-danger btn-sm btn-delete" >Delete
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                        <button class="btn btn-primary btn-sm" data-edit="${product.id}">Edit
+                                        <button class="btn btn-primary btn-sm btn-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit
                                             <i class="fa-solid fa-edit"></i>
                                         </button>
                                     </td>
                                 </tr>`;
   });
+  const deleteButtons = document.querySelectorAll(".btn-delete");
+  deleteButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      axios
+        .delete(`/products/${products[index].id}`)
+        .then(() => {
+          getProducts();
+        })
+        .catch((error) => {
+          console.error("Error al eliminar producto\n", error);
+        });
+    });
+  });
+  const editButtons = document.querySelectorAll(".btn-edit");
+  editButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      productName.value = products[index].productname;
+      procutsCategory.value = products[index].category;
+      productGender.value = products[index].gender;
+      productDescription.value = products[index].description;
+      productPrice.value = products[index].price;
+      // productImage.value = products[index].image;
+      isEditing = products[index].id;
+      formTitle.innerText = "Edit Product";
+      formButton.innerText = "Save Changes";
+    });
+  });
 }
 
 productForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
   if (isEditing) {
     axios
       .put(`/products/${isEditing}`, {
@@ -65,8 +90,6 @@ productForm.addEventListener("submit", (event) => {
       })
       .then(() => {
         getProducts();
-        formTitle.innerHTML = "Edit Product";
-        formButton.innerHTML = "Save Changes";
         isEditing = null;
       })
       .catch((error) => {
