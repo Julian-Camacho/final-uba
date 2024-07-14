@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.first-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0rem;
+    margin-bottom: 1rem;
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

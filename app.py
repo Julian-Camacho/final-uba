@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify, send_file # type: ignore
 from psycopg2 import connect, extras # type: ignore
-from cryptography.fernet import Fernet # type: ignore
+# from cryptography.fernet import Fernet # type: ignore
 
 
 app = Flask(__name__)
-key = Fernet.generate_key()
 
 # Connect to the database
 host = 'localhost'
@@ -55,7 +54,7 @@ def create_user():
     new_user = request.get_json()
     username = new_user['username']
     email = new_user['email'] 
-    password = Fernet(key).encrypt(bytes(new_user['password'], 'utf-8'))
+    password = new_user['password']
 
     conn = get_connect()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
@@ -77,7 +76,7 @@ def update_user(id):
     new_user = request.get_json()
     username = new_user['username']
     email = new_user['email']
-    password = Fernet(key).encrypt(bytes(new_user['password'], 'utf-8'))
+    password = new_user['password']
     cur.execute("UPDATE users SET username = %s, email = %s, password = %s WHERE id = %s RETURNING *",
                 (username, email, password, id))
     updated_user = cur.fetchone()

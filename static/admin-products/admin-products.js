@@ -6,11 +6,16 @@ const productDescription = document.getElementById("prodDesc");
 const productPrice = document.getElementById("prodPrice");
 const productImage = document.getElementById("prodImg");
 const productForm = document.getElementById("prodForm");
+const formBtm = document.getElementById("btnAdd");
 
 // Obtengo los elementos que quiero editar del documento
 const formTitle = document.getElementById("modalTitle");
 const productTable = document.getElementById("prodTable");
 const formButton = document.getElementById("modalSubmit");
+
+formBtm.addEventListener("click", () => {
+  productForm.reset();
+});
 
 // Creo una variable para saber si estoy editando o no
 let isEditing = null;
