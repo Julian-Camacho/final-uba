@@ -185,6 +185,17 @@ def delete_prouct(id):
         return jsonify({'message': 'Product not found'}), 404
     return jsonify(product)
 
+# Get Products by gender 
+@app.route('/products/<gender>', methods=['GET'])
+def get_gender_products(gender):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("SELECT * FROM products WHERE gender = %s", (gender,))
+    product = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify(product)
+
 # Base route
 @app.route('/', methods=['GET'])
 def home():

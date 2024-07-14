@@ -3,6 +3,7 @@ CREATE TABLE users (
     username VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    image VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -13,5 +14,6 @@ CREATE TABLE products (
     gender VARCHAR(100) NOT NULL,
     description VARCHAR(255),
     price DECIMAL(10, 2) NOT NULL,
+    image VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

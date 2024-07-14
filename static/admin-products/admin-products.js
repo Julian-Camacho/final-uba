@@ -38,6 +38,7 @@ function renderProducts(products) {
   productTable.innerHTML = "";
   products.forEach((product) => {
     productTable.innerHTML += `<tr>
+                                    <td><img class="table-img" src="${product.image}" alt="${product.productname}"></td>
                                     <td>${product.productname}</td>
                                     <td>${product.category}</td>
                                     <td>${product.gender}</td>
@@ -74,7 +75,7 @@ function renderProducts(products) {
       productGender.value = products[index].gender;
       productDescription.value = products[index].description;
       productPrice.value = products[index].price;
-      // productImage.value = products[index].image;
+      productImage.value = products[index].image;    
       isEditing = products[index].id;
       formTitle.innerText = "Edit Product";
       formButton.innerText = "Save Changes";
@@ -91,7 +92,7 @@ productForm.addEventListener("submit", (event) => {
         gender: productGender.value,
         description: productDescription.value,
         price: productPrice.value,
-        // image: productImage.value,
+        image: productImage.value,
       })
       .then(() => {
         getProducts();
@@ -108,7 +109,7 @@ productForm.addEventListener("submit", (event) => {
         gender: productGender.value,
         description: productDescription.value,
         price: productPrice.value,
-        // image: productImage.value,
+        image: productImage.value,
       })
       .then(() => {
         getProducts();

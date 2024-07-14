@@ -79,8 +79,13 @@
                             <label for="prodDesc">Product Description</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control" id="prodPrice" placeholder="Product Price">
+                            <input type="number" class="form-control" id="prodPrice" placeholder="Product Price"
+                                step=".01">
                             <label for="prodPrice">Product Price</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="prodImg" placeholder="Product Image">
+                            <label for="floatingInput">Product Image</label>
                         </div>
                         <button type="submit" class="btn btn-primary" id="modalSubmit">Add Product</button>
                     </form>
@@ -94,7 +99,8 @@
         <div class="first-container">
             <h1>Admin Products</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnAdd">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="btnAdd">
                 Add Product
             </button>
         </div>
@@ -102,6 +108,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">Product Image</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Gender</th>

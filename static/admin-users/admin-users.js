@@ -4,6 +4,7 @@ const userEmail = document.getElementById("prodEmail");
 const userPass = document.getElementById("prodPass");
 const productForm = document.getElementById("prodForm");
 const formBtm = document.getElementById("btnAdd");
+const productImage = document.getElementById("prodImg");
 
 // Obtengo los elementos que quiero editar del documento
 const formTitle = document.getElementById("modalTitle");
@@ -35,6 +36,7 @@ function renderProducts(products) {
   productTable.innerHTML = "";
   products.forEach((product) => {
     productTable.innerHTML += `<tr>
+                                    <td><img class="table-img"  src="${product.image}" alt="${product.username}"></td>
                                     <td>${product.username}</td>
                                     <td>${product.email}</td>
                                     <td>${product.password}</td>
@@ -67,7 +69,7 @@ function renderProducts(products) {
       userName.value = products[index].username;
       userEmail.value = products[index].email;
       userPass.value = products[index].password;
-      // productImage.value = products[index].image;
+      productImage.value = products[index].image;
       isEditing = products[index].id;
       formTitle.innerText = "Edit User";
       formButton.innerText = "Save Changes";
@@ -82,7 +84,7 @@ productForm.addEventListener("submit", (event) => {
         username: userName.value,
         email: userEmail.value,
         password: userPass.value,
-        // image: productImage.value,
+        image: productImage.value,   
       })
       .then(() => {
         getProducts();
@@ -97,7 +99,7 @@ productForm.addEventListener("submit", (event) => {
         username: userName.value,
         email: userEmail.value,
         password: userPass.value,
-        // image: productImage.value,
+        image: productImage.value,
       })
       .then(() => {
         getProducts();
