@@ -103,18 +103,93 @@ def delete_user(id):
     return jsonify(user)
 
 
+# Get products
+@app.route('/products', methods=['GET'])
+def get_products():
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("SELECT * FROM products")
+    products = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify(products)
+
+# Get a product by id
+@app.route('/products/<int:id>', methods=['GET'])
+def get_product(id):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("SELECT * FROM products WHERE id = %s", (id,))
+    product = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if product is None:
+        return jsonify({'message': 'Product not found'}), 404
+
+    return jsonify(product)
+
+# Create a product
+@app.route('/products', methods=['POST']) 
+def create_product():
+    new_product = request.get_json()
+    productname = new_product['productname']
+    category = new_product['category']
+    gender = new_product['gender']
+    description = new_product['description']
+    price = new_product['price']
+    
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("INSERT INTO products (productname, category, gender, description, price) VALUES (%s, %s, %s, %s, %s) RETURNING *",
+                (productname, category, gender, description, price))
+    created_product = cur.fetchone()
+    
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    return jsonify(created_product)
+
+# Update a product
+@app.route('/products/<int:id>', methods=['PUT'])  
+def update_product(id):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    new_product = request.get_json()
+    productname = new_product['productname']
+    category = new_product['category']
+    gender = new_product['gender']
+    description = new_product['description']
+    price = new_product['price']
+    cur.execute("UPDATE products SET productname = %s, category = %s, gender = %s, description = %s, price = %s WHERE id = %s RETURNING *",
+                (productname, category, gender, description, price, id))
+    created_product = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    if created_product is None:
+        return jsonify({'message': 'Product not found'}), 404
+    return jsonify(created_product)
+
+# Delete a user
+@app.route('/products/<int:id>', methods=['DELETE'])
+def delete_prouct(id):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("DELETE FROM products WHERE id = %s RETURNING *", (id,))
+    product = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    if product is None:
+        return jsonify({'message': 'Product not found'}), 404
+    return jsonify(product)
+
 # Base route
 @app.route('/', methods=['GET'])
 def home():
     return send_file('static/index.html')
-
-@app.route('/admin-produdts', methods=['GET'])
-def admin_products():
-    return send_file('static/admin-products/admin-products.html')
-
-@app.route('/admin-users', methods=['GET'])
-def admin_users():
-    return send_file('static/admin-users/admin-users.html')
 
 if __name__ == '__main__':
     app.run(debug=True) # run our Flask app
