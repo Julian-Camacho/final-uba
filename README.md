@@ -8,12 +8,12 @@ En los diseños se usó Boostrap para un armado de la página más rápido y din
 
 ## Tecnologías utilizadas
 
-![Python](https://images.vexels.com/media/users/3/166477/isolated/preview/9bb722f0e85ddbc1ce0f064534fd2311---cono-del-lenguaje-de-programaci--n-python-by-vexels.png)
-![PostgresSQL](https://w7.pngwing.com/pngs/657/27/png-transparent-postgresql-original-wordmark-logo-icon.png)
-![HTML](https://cdn-icons-png.flaticon.com/512/174/174854.png)
-![CSS](https://th.bing.com/th/id/OIP.hG6v403fXEtFUUkC_PUq2QHaKt?rs=1&pid=ImgDetMain)
-![Bootstrap](https://brandlogos.net/wp-content/uploads/2021/09/bootstrap-logo.png)
-![JavaScript](https://images.vexels.com/media/users/3/166403/isolated/preview/a5a33bf3004830a2bd581e9fa65de660-icono-del-lenguaje-de-programacion-javascript.png)
+![Python|50](https://images.vexels.com/media/users/3/166477/isolated/preview/9bb722f0e85ddbc1ce0f064534fd2311---cono-del-lenguaje-de-programaci--n-python-by-vexels.png)
+![PostgresSQL|50](https://w7.pngwing.com/pngs/657/27/png-transparent-postgresql-original-wordmark-logo-icon.png)
+![HTML|50](https://cdn-icons-png.flaticon.com/512/174/174854.png)
+![CSS|50](https://th.bing.com/th/id/OIP.hG6v403fXEtFUUkC_PUq2QHaKt?rs=1&pid=ImgDetMain)
+![Bootstrap|50](https://brandlogos.net/wp-content/uploads/2021/09/bootstrap-logo.png)
+![JavaScript|50](https://images.vexels.com/media/users/3/166403/isolated/preview/a5a33bf3004830a2bd581e9fa65de660-icono-del-lenguaje-de-programacion-javascript.png)
 
 ## Instalación
 
@@ -33,7 +33,7 @@ python app.py
 
 ### Visualización
 
-El proyecto se ejecuta en el puerto `5000` por lo que una vez ejecutado debes dirigirte [aquí](http://127.0.0.1:5000)
+El proyecto se ejecuta en el puerto `5000` por lo que una vez ejecutado debes dirigirte [aquí](http://127.0.0.1:5000){:target="_blank"}
 
 Para la visualización de la base de datos se utilizó el programa DBeaver.
 
