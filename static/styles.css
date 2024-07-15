@@ -42,3 +42,12 @@
         text-align: justify;
     }
 }
+
+#alertCont {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    .alert {
+        gap: 1rem;
+    }
+}

@@ -17,3 +17,12 @@ h1 {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
 }
+
+#alertCont {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    .alert {
+        gap: 1rem;
+    }
+}

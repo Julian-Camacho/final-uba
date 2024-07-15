@@ -1,4 +1,5 @@
 const display = document.getElementById("viewProd");
+const alertDisplay = document.getElementById("alertCont");
 
 getMensProducts();
 
@@ -31,7 +32,15 @@ function handleCart(product) {
       total: prodTotal,
     })
     .then(() => {
-      alert("Producto agregado al carrito.");
+      alertDisplay.innerHTML = `<div class="alert alert-success d-flex align-items-center" role="alert">
+                                  <i class="fa-regular fa-circle-check"></i>
+                                  <div>
+                                    El producto fue agregado al carrito.
+                                  </div>
+                                </div>`;
+      setTimeout(() => {
+        alertDisplay.innerHTML = "";
+      }, 1500);
     })
     .catch((error) => {
       console.error("Error al agregar producto al carrito.\n", error);

@@ -251,11 +251,9 @@ def update_order(id):
     conn = get_connect()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
     new_order = request.get_json()
-    product_price = new_order['product_price']
     quantity = new_order['quantity']
-    total = new_order['total']
-    cur.execute("UPDATE orders SET product_price = %s, quantity = %s, total = %s WHERE id = %s RETURNING *",
-                (product_price, quantity, total, id))
+    cur.execute("UPDATE orders SET quantity = %s WHERE id = %s RETURNING *",
+                (quantity, id))
     updated_order = cur.fetchone()
     conn.commit()
     cur.close()

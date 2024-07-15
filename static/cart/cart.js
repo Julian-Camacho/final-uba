@@ -9,7 +9,7 @@ function getOrder() {
       renderProducts(response.data);
     })
     .catch((error) => {
-      console.error("Error al obtener usuarios.\n", error);
+      console.error("Error al obtener orden de compra.\n", error);
     });
 }
 
@@ -22,11 +22,14 @@ function renderProducts(products) {
                                       <td>${product.product_price}</td>
                                       <td>${product.quantity}</td>
                                       <td>
-                                          <button class="btn btn-danger btn-sm btn-delete" >Delete
-                                              <i class="fa-solid fa-trash"></i>
+                                          <button class="btn btn-primary btn-sm btn-edit">
+                                            <i class="fa-solid fa-plus"></i>
                                           </button>
-                                          <button class="btn btn-primary btn-sm btn-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit
-                                              <i class="fa-solid fa-edit"></i>
+                                          <button class="btn btn-primary btn-sm btn-edit-minus">
+                                            <i class="fa-solid fa-minus"></i>
+                                          </button>
+                                          <button class="btn btn-danger btn-sm btn-delete" >    
+                                            <i class="fa-solid fa-trash"></i>
                                           </button>
                                       </td>
                                   </tr>`;
@@ -40,14 +43,51 @@ function renderProducts(products) {
           getOrder();
         })
         .catch((error) => {
-          console.error("Error al eliminar usuario.\n", error);
+          console.error("Error al eliminar producto del carrito.\n", error);
         });
     });
   });
   const editButtons = document.querySelectorAll(".btn-edit");
   editButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
-      console.log(products[index]);
+      console.log(products[index].id);
+
+      axios
+        .put(`/orders/${products[index].id}`, {
+          quantity: products[index].quantity + 1,
+        })
+        .then(() => {
+          getOrder();
+        })
+        .catch((error) => {
+          console.error("Error al agregar producto al carrito.\n", error);
+        });
+    });
+  });
+  const editMinusButtons = document.querySelectorAll(".btn-edit-minus");
+  editMinusButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      if (products[index].quantity > 1) {
+        axios
+          .put(`/orders/${products[index].id}`, {
+            quantity: products[index].quantity - 1,
+          })
+          .then(() => {
+            getOrder();
+          })
+          .catch((error) => {
+            console.error("Error al agregar producto al carrito.\n", error);
+          });
+      } else {
+        axios
+          .delete(`/orders/${products[index].id}`)
+          .then(() => {
+            getOrder();
+          })
+          .catch((error) => {
+            console.error("Error al eliminar producto del carrito.\n", error);
+          });
+      }
     });
   });
 }
