@@ -1,4 +1,6 @@
 const productTable = document.getElementById("prodTable");
+const totalDisplay = document.getElementById("total");
+const checkoutBtn = document.getElementById("checkout");
 
 getOrder();
 
@@ -7,6 +9,7 @@ function getOrder() {
     .get(`/orders`)
     .then((response) => {
       renderProducts(response.data);
+      handleTotal(response.data);
     })
     .catch((error) => {
       console.error("Error al obtener orden de compra.\n", error);
@@ -90,4 +93,12 @@ function renderProducts(products) {
       }
     });
   });
+}
+
+function handleTotal(products) {
+  let total = 0;
+  products.forEach((product) => {
+    total += product.product_price * product.quantity;
+  });
+  totalDisplay.innerHTML = total.toFixed(2);
 }
