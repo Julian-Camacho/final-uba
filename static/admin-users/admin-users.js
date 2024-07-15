@@ -13,6 +13,8 @@ const formButton = document.getElementById("modalSubmit");
 
 formBtm.addEventListener("click", () => {
   productForm.reset();
+  formTitle.innerText = "Add User";
+  formButton.innerText = "Add User";
 });
 
 // Creo una variable para saber si estoy editando o no
@@ -84,7 +86,7 @@ productForm.addEventListener("submit", (event) => {
         username: userName.value,
         email: userEmail.value,
         password: userPass.value,
-        image: productImage.value,   
+        image: productImage.value,
       })
       .then(() => {
         getProducts();
@@ -94,12 +96,15 @@ productForm.addEventListener("submit", (event) => {
         console.error("Error al editar usuaro.\n", error);
       });
   } else {
+    const image = productImage.value
+      ? productImage.value
+      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
     axios
       .post(`/users`, {
         username: userName.value,
         email: userEmail.value,
         password: userPass.value,
-        image: productImage.value,
+        image: image,
       })
       .then(() => {
         getProducts();

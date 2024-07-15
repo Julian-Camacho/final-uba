@@ -15,6 +15,8 @@ const formButton = document.getElementById("modalSubmit");
 
 formBtm.addEventListener("click", () => {
   productForm.reset();
+  formTitle.innerText = "Add Product";
+  formButton.innerText = "Add Product";
 });
 
 // Creo una variable para saber si estoy editando o no
@@ -75,7 +77,7 @@ function renderProducts(products) {
       productGender.value = products[index].gender;
       productDescription.value = products[index].description;
       productPrice.value = products[index].price;
-      productImage.value = products[index].image;    
+      productImage.value = products[index].image;
       isEditing = products[index].id;
       formTitle.innerText = "Edit Product";
       formButton.innerText = "Save Changes";
@@ -102,8 +104,9 @@ productForm.addEventListener("submit", (event) => {
         console.error("Error al editar producto\n", error);
       });
   } else {
-    
-    console.log(productImage.value);
+    const image = productImage.value
+      ? productImage.value
+      : "https://th.bing.com/th/id/OIP.Qu25kEoAAjUn2nl90z0jzAAAAA?rs=1&pid=ImgDetMain";
     axios
       .post(`/products`, {
         productname: productName.value,
@@ -111,7 +114,7 @@ productForm.addEventListener("submit", (event) => {
         gender: productGender.value,
         description: productDescription.value,
         price: productPrice.value,
-        image: productImage.value,
+        image: image,
       })
       .then(() => {
         getProducts();

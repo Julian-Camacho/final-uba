@@ -200,6 +200,74 @@ def get_gender_products(gender):
     conn.close()
     return jsonify(product)
 
+# Get Orders
+@app.route('/orders', methods=['GET'])
+def get_orders():
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("SELECT * FROM orders")
+    orders = cur.fetchall()
+    cur.close()
+    conn.close()
+    return jsonify(orders)
+
+# Post orders 
+@app.route('/orders', methods=['POST'])
+def create_order():
+    new_order = request.get_json()
+    product_id = new_order['product_id']
+    product_image = new_order['product_image']
+    product_name = new_order['product_name']
+    product_price = new_order['product_price']
+    quantity = new_order['quantity']
+    total = new_order['total']
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("INSERT INTO orders (product_id, product_image, product_name, product_price, quantity, total) VALUES (%s, %s, %s, %s, %s, %s) RETURNING *",
+                (product_id, product_image, product_name, product_price, quantity, total))
+    created_order = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return jsonify(created_order)
+
+# Delete an order
+@app.route('/orders/<int:id>', methods=['DELETE']) 
+def delete_order(id):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    cur.execute("DELETE FROM orders WHERE id = %s RETURNING *", (id,))
+    order = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    if order is None:
+        return jsonify({'message': 'Order not found'}), 404
+    return jsonify(order)
+
+# Update an order 
+@app.route('/orders/<int:id>', methods=['PUT'])
+def update_order(id):
+    conn = get_connect()
+    cur = conn.cursor(cursor_factory=extras.RealDictCursor)
+    new_order = request.get_json()
+    product_id = new_order['product_id']
+    product_image = new_order['product_image']
+    product_name = new_order['product_name']
+    product_price = new_order['product_price']
+    quantity = new_order['quantity']
+    total = new_order['total']
+    cur.execute("UPDATE orders SET product_id = %s, product_image = %s, product_name = %s, product_price = %s, quantity = %s, total = %s WHERE id = %s RETURNING *",
+                (product_id, product_image, product_name, product_price, quantity, total, id))
+    updated_order = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    if updated_order is None:
+        return jsonify({'message': 'Order not found'}), 404
+    return jsonify(updated_order)
+
+
 # Base route
 @app.route('/', methods=['GET'])
 def home():

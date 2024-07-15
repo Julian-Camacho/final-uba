@@ -22,3 +22,23 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
 }
+
+.registro {
+    padding: 1rem;
+    margin: 1rem;
+    h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.reg-cont {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    p {
+        font-size: 1rem;
+        margin-right: 1rem;
+        text-align: justify;
+    }
+}
