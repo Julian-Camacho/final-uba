@@ -24,3 +24,9 @@
     object-fit: cover;
     border-radius: 50%;
 }
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}

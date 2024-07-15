@@ -14,13 +14,13 @@ function getMensProducts() {
 }
 
 function handleCart(product) {
-  console.log(product);
   const prodId = product.id;
   const prodName = product.productname;
   const prodPrice = product.price;
   const prodImage = product.image;
   const prodQty = 1;
   const prodTotal = prodPrice * prodQty;
+
   axios
     .post(`/orders`, {
       product_id: prodId,
@@ -47,7 +47,7 @@ function renderProducts(products) {
                                             <h5 class="card-title">${product.productname}</h5>
                                             <p class="card-text">${product.description}</p>
                                             <p class="card-text">$ ${product.price}</p>
-                                            <a href="#" class="btn btn-primary cart-btn" cartData="${product.id}">Add to Cart</a>
+                                            <button class="btn btn-primary cart-btn" cartData="${product.id}">Add to Cart</button>
                                         </div>
                                     </div>`;
   });

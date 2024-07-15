@@ -251,14 +251,11 @@ def update_order(id):
     conn = get_connect()
     cur = conn.cursor(cursor_factory=extras.RealDictCursor)
     new_order = request.get_json()
-    product_id = new_order['product_id']
-    product_image = new_order['product_image']
-    product_name = new_order['product_name']
     product_price = new_order['product_price']
     quantity = new_order['quantity']
     total = new_order['total']
-    cur.execute("UPDATE orders SET product_id = %s, product_image = %s, product_name = %s, product_price = %s, quantity = %s, total = %s WHERE id = %s RETURNING *",
-                (product_id, product_image, product_name, product_price, quantity, total, id))
+    cur.execute("UPDATE orders SET product_price = %s, quantity = %s, total = %s WHERE id = %s RETURNING *",
+                (product_price, quantity, total, id))
     updated_order = cur.fetchone()
     conn.commit()
     cur.close()
