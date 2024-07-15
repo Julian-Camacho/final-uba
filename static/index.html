@@ -47,6 +47,39 @@
         </div>
     </nav>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="modalTitle">Add Product</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="modal-form" id="prodForm">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="prodName" placeholder="User Name">
+                            <label for="prodName">User Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="prodEmail" placeholder="Email">
+                            <label for="prodEmail">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="prodPass" placeholder="Password">
+                            <label for="prodPass">Password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="prodImg" placeholder="User Image">
+                            <label for="prodImg">User Image</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="modalSubmit">Add User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main -->
     <main class="main-container container-lg ">
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
@@ -74,6 +107,13 @@
                 </div>
             </div>
         </div>
+        <section class="registro">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="btnAdd">
+                Add User
+            </button>
+        </section>
         <section class="ofertas">
             <h2>Ofertas</h2>
             <div class="products" id="viewProd"></div>
@@ -88,4 +128,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/static/main.js"></script>
 </body>
+
 </html>

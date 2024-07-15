@@ -27,3 +27,30 @@ function renderProducts(products) {
                                     </div>`;
   });
 }
+
+const userName = document.getElementById("prodName");
+const userEmail = document.getElementById("prodEmail");
+const userPass = document.getElementById("prodPass");
+const productForm = document.getElementById("prodForm");
+const formBtm = document.getElementById("btnAdd");
+const productImage = document.getElementById("prodImg");
+
+formBtm.addEventListener("click", () => {
+  productForm.reset();
+});
+
+productForm.addEventListener("submit", (event) => {
+  axios
+    .post(`/users`, {
+      username: userName.value,
+      email: userEmail.value,
+      password: userPass.value,
+      image: productImage.value,
+    })
+    .then(() => {
+      getProducts();
+    })
+    .catch((error) => {
+      console.error("Error al agregar ususario.\n", error);
+    });
+});
