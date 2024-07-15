@@ -2,6 +2,8 @@ const productTable = document.getElementById("prodTable");
 const totalDisplay = document.getElementById("total");
 const checkoutBtn = document.getElementById("checkout");
 
+const alertDisplay = document.getElementById("alertCont");
+
 getOrder();
 
 function getOrder() {
@@ -102,3 +104,33 @@ function handleTotal(products) {
   });
   totalDisplay.innerHTML = total.toFixed(2);
 }
+
+checkoutBtn.addEventListener("click", () => {
+  axios
+    .get(`/orders`)
+    .then((response) => {
+      for (let i = 0; i < response.data.length; i++) {
+        axios
+          .delete(`/orders/${response.data[i].id}`)
+          .then(() => {
+            getOrder();
+          })
+          .catch((error) => {
+            console.error("Error al eliminar producto del carrito.\n", error);
+          });
+      }
+
+      alertDisplay.innerHTML = `<div class="alert alert-success d-flex align-items-center" role="alert">
+                                  <i class="fa-regular fa-circle-check"></i>
+                                  <div>
+                                    Su compra se ejecutó con éxito.
+                                  </div>
+                                </div>`;
+      setTimeout(() => {
+        alertDisplay.innerHTML = "";
+      }, 1500);
+    })
+    .catch((error) => {
+      console.error("Error al obtener orden de compra.\n", error);
+    });
+});

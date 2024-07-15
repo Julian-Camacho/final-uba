@@ -31,3 +31,13 @@
     margin-top: 2rem;
     padding: 1rem;
 }
+
+#alertCont {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    .alert {
+        gap: 1rem;
+    }
+}
