@@ -20,11 +20,11 @@ CREATE TABLE products (
 
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY NOT NULL,
-    product_id INT NOT NULL,
+    product_id FOREIGN KEY REFERENCES products(id),
     product_image VARCHAR(255) NOT NULL,
     product_name VARCHAR(100) NOT NULL,
     product_price DECIMAL(10, 2) NOT NULL,
     quantity INT NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+);lkj

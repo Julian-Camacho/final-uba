@@ -24,7 +24,7 @@ El proyecto requeire tener Python y PostgresSQL instalados en la máquina para p
 
 ### Ejecución
 
-Los comandos para instalar el proyecto son los siguientes
+Los comandos para instalar el proyecto son los siguientes:
 
 ```
 git clone git@github.com:Julian-Camacho/final-uba.git
@@ -34,9 +34,9 @@ python app.py
 
 ### Visualización
 
-El proyecto se ejecuta en el puerto `5000` por lo que una vez ejecutado debes dirigirte [aquí](http://127.0.0.1:5000)
+El proyecto se ejecuta en el puerto `5000` por lo que una vez ejecutado debes dirigirte [aquí](http://127.0.0.1:5000).
 
-Para la visualización de la base de datos se utilizó el programa DBeaver ![DBeaver](https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo=dbeaver&logoColor=white).
+Para la visualización de la base de datos se utilizó el programa DBeaver ![DBeaver](https://img.shields.io/badge/dbeaver-382923?style=for-the-badge&logo=dbeaver&logoColor=white)
 
 ## Equipo
 
